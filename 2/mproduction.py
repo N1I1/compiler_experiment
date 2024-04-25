@@ -19,6 +19,23 @@ class MProduction(Production):
 
     # def __contains__(self, non_terminal):
 
+    def __getitem__(self, i) -> Production:
+        if i >= len(self.right):
+            raise ValueError(f"out of scope of {self}")
+        return Production(self.left, self.right[i])
+
+
+    def __repr__(self):
+        left = self.left
+        mid = ' -> '
+        right = ''
+        for right_part in self.right:
+            for single in right_part:
+                right += single
+            right += ' | '
+        right = right[:-3]
+
+        return left + mid + right
 
     def __str__(self):
         left = self.left

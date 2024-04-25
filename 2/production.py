@@ -16,6 +16,13 @@ class Production(object):
                 raise TypeError(f"{right} can't be the right of Production")
             self.right.append(right)
 
+    # 对 python 中 repr 和深层dict了解不是很深
+    def __repr__(self) -> str:
+        right = ''
+        for right_part in self.get_right():
+            right += right_part
+        return self.get_left() + " -> " + right
+
     def __str__(self) -> str:
         right = ''
         for right_part in self.get_right():

@@ -2,7 +2,7 @@ from initial import *
 from production import *
 from mproduction import *
 from grammar import *
-from ll1 import create_ll1_table
+from ll1 import create_ll1_table, parser
 
 initial_terminals('i+-*/()')
 initial_non_terminals('EGTSF')
@@ -29,12 +29,18 @@ def main():
     print(E, G, T, S, F, sep='\n')
     print('--------')
     grammar = Grammar([E, G, T, S, F])
+    print(grammar.get_first_sets())
+    print(grammar.get_follow_sets())
 
     # 建表
-
+    print(grammar.get_follow_sets())
     table = create_ll1_table(grammar=grammar)
-    print(table['G'][')'])
 
     # 按照表格 进行分析
-    
-main()
+    input = 'i+i*i$'
+    parser(table, input, 'E')
+
+
+
+if __name__ == '__main__':
+    main()

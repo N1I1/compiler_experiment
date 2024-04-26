@@ -1,15 +1,14 @@
 from initial import *
-from production import *
-from mproduction import *
 from grammar import *
 from ll1 import create_ll1_table, parser
 
-initial_terminals('i+-*/()')
-initial_non_terminals('EGTSF')
-initial_start('E')
 
 
 def main():
+    '''
+    initial_terminals('i+-*/()')
+    initial_non_terminals('EGTSF')
+    initial_start('E')
     E1 = Production('E', 'TG')
     G1 = Production('G', '+TG')
     G2 = Production('G', '-TG')
@@ -39,8 +38,16 @@ def main():
     # 按照表格 进行分析
     input = 'i+i*i$'
     parser(table, input, 'E')
-
+    '''
 
 
 if __name__ == '__main__':
-    main()
+    lines = initial_from_file('initial.txt')
+    grammar = create_grammar(lines)
+    table = create_ll1_table(grammar)
+    with open('input.txt') as f:
+        input = f.readline()
+        input = input.rstrip()
+        start = f.readline().rstrip()
+    parser(table, input, start)
+

@@ -1,5 +1,4 @@
 from grammar import Grammar
-from production import Production
 from initial import _EPSILON, _EOF, _TERMINALS, _NON_TERMINALS
 
 # step1: input the principle
@@ -68,7 +67,9 @@ def parser(table, input, start):
         s = input[i]
         top = stack[-1]
         if top == _EOF:
-            print('\n*****************************\nsuccess')
+            print('\n')
+            print('*' * 90)
+            print('success')
             break
         elif top in _TERMINALS:
             stack.pop()
@@ -95,6 +96,7 @@ def parser(table, input, start):
             except KeyError:
                 print('Error')
         procedure_count += 1
+
 
 def print_stack(stack):
     res = ''

@@ -1,3 +1,5 @@
+from production import Production
+from mproduction import MProduction
 from initial import _TERMINALS, _NON_TERMINALS, _EPSILON, _EOF, _START_SYMBOLS
 
 class Grammar(object):
@@ -131,3 +133,28 @@ class Grammar(object):
     @property
     def is_LL(self):
         raise NotImplemented
+
+def create_grammar(lines: list) -> Grammar:
+    productions = []
+    mproductions = []
+    
+    cur_non_terminal = lines[0][0]
+    for line in lines:
+        line = line.rstrip()
+        left = line[0]
+        right = line[2:]
+        if left != cur_non_terminal:
+            mproduction = MProduction(productions.copy())
+            mproductions.append(mproduction)
+            productions = []
+            cur_non_terminal = left
+        production = Production(left, right)
+        productions.append(production)
+    
+    if productions is not []:
+        mproduction = MProduction(productions)
+        mproductions.append(mproduction)
+    
+    # print(mproductions)
+
+    return Grammar(mproductions)

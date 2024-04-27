@@ -22,6 +22,19 @@ class Grammar(object):
     def get_productions(self):
         return self.productions.values()
     
+    def get_productions_dict(self):
+        return self.productions
+
+    def first(self, input) ->set:
+        if len(input) == 0:
+            raise ValueError(f"input is None")
+        if input[0] in _TERMINALS:
+            return set(input[0])
+        elif input[0] == _EPSILON:
+            return set(_EPSILON)
+        else:
+            first_sets = self.get_first_sets()
+            return first_sets[input[0]]
 
     def get_first_sets(self) -> dict:
         """

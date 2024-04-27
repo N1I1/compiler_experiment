@@ -1,4 +1,4 @@
-from grammar import Grammar
+from grammar import Grammar, first
 from initial import _EPSILON, _EOF, _TERMINALS, _NON_TERMINALS
 
 # step1: input the principle
